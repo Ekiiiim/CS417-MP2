@@ -11,16 +11,8 @@ public class EnableCropClicker : MonoBehaviour
     private bool isPlayerInside = false;
     private Coroutine blinkingCoroutine;
 
-    void OnEnable()
-    {
-        clickAction.action.Enable();
-        clickAction.action.performed += onClickCrop;
-    }
-    void OnDisable()
-    {
-        clickAction.action.performed -= onClickCrop;
-        clickAction.action.Disable();
-    }
+    void OnEnable() => clickAction.action.performed += onClickCrop;
+    void OnDisable() => clickAction.action.performed -= onClickCrop;
     private void onClickCrop(InputAction.CallbackContext context)
     {
         if (isPlayerInside)

@@ -12,17 +12,9 @@ public class EnableHouseUnlock : MonoBehaviour
     private bool isPlayerInside = false;
     private Coroutine blinkingCoroutine;
 
-    private void OnEnable()
-    {
-        unlockAction.action.Enable();
-        unlockAction.action.performed += onUnlockHouse;
-    }
+    private void OnEnable() => unlockAction.action.performed += onUnlockHouse;
 
-    private void OnDisable()
-    {
-        unlockAction.action.performed -= onUnlockHouse;
-        unlockAction.action.Disable();
-    }
+    private void OnDisable() => unlockAction.action.performed -= onUnlockHouse;
 
     private void onUnlockHouse(InputAction.CallbackContext context)
     {
