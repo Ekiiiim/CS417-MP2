@@ -20,7 +20,6 @@ public class HouseManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI upgradeText;
 
-    private bool isPlaced = false;
     private float currentContribution = 0;
     private float currentUpkeep = 0;
     private int currentCost;
@@ -28,21 +27,12 @@ public class HouseManager : MonoBehaviour
     private void OnEnable()
     {
         currentCost = baseCost * costMultiplierPerUpgrade;
-        currentContribution = baseCropRate;
         UpdateUI();
     }
 
     private void OnDisable()
     {
         RemoveContribution();
-    }
-    public void PlaceHouse()
-    {
-        if (isPlaced) return;
-        isPlaced = true;
-
-        ApplyContribution();
-        UpdateUI();
     }
 
     public void ActivateHouse()
@@ -54,17 +44,13 @@ public class HouseManager : MonoBehaviour
 
     public void UpgradeHouse()
     {
-        if (!isPlaced)
-        {
-            Debug.LogWarning("Tried upgrading house before it was placed. Calling PlaceHouse() first.");
-            PlaceHouse();
-        }
-
         if (IsMaxLevel())
         {
             Debug.Log("House max level.");
             return;
         }
+
+        if (!ResourceManager.Instance.SpendCrops(currentCost)) return;
 
         RemoveContribution();
         RemoveUpkeep();
@@ -95,7 +81,6 @@ public class HouseManager : MonoBehaviour
 
     private void RemoveContribution()
     {
-        if (!isPlaced) return;
         if (currentContribution == 0) return;
 
         ResourceManager.Instance.IncreaseCropGrowthRate(-currentContribution);
