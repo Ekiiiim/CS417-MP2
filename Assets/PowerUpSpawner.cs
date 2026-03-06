@@ -12,7 +12,6 @@ public class PowerUpSpawner : MonoBehaviour
     [SerializeField] private Vector2 spawnBoundMin;
 
     [Header("Variables")]
-    [SerializeField] private float cropMultiplier;
     [SerializeField] private float minTime = 0.0f;
     [SerializeField] private float maxTime = 1.0f;
     private float timeToSpawn;

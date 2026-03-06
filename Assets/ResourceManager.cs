@@ -22,9 +22,9 @@ public class ResourceManager : MonoBehaviour
     public float powerUpMultiplier;
     public float powerUpDuration;
 
-    private float powerUpTimer = 0f;
+    public float powerUpTimer = 0f;
     private float timer = 0f;
-    private float curPowerUpMulti = 1f;
+    public float curPowerUpMulti = 1f;
 
     private void Awake() => Instance = this;
 
@@ -102,7 +102,7 @@ public class ResourceManager : MonoBehaviour
         return false;
     }
 
-    public void ActivatePowerUp(GameObject gameObject)
+    public void ActivatePowerUp()
     {
         powerUpTimer = powerUpDuration;
     }
